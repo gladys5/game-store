@@ -16,7 +16,9 @@ const {
 const router = express.Router()
 router.post('/signup', createUserValidators, createUser)
 router.post('/login', login)
-router.get('/', getUserActive)
-router.patch('/:id', userExists, protectSession, protectUserAccount, updateUser)
-router.delete('/:id', userExists, protectUserAccount, desabiliteUser)
+//todas las rutas por debajo estan protegidas
+router.use(protectSession)
+router.get('/', protectUserAccount, userExists, getUserActive)
+router.patch('/:id', protectUserAccount, userExists, updateUser)
+router.delete('/:id', protectUserAccount, userExists, desabiliteUser)
 module.exports = { UserRouter: router }
