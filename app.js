@@ -4,6 +4,8 @@ const { GameRouter } = require('./routes/games.routes')
 const { UserRouter } = require('./routes/users.routes')
 
 const { globalErrorHandler } = require('./controllers/error.controller')
+const { AppError } = require('./utils/app.Error.util')
+
 const app = express()
 
 app.use(express.json())
