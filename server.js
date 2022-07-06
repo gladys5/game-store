@@ -16,8 +16,14 @@ Review.belongsTo(User)
 Game.hasMany(Review, { foreignKey: 'gameId' })
 Review.belongsTo(Game)
 
-Console.belongsToMany(Game, { through: 'GamesInConsoles' })
-
+Game.belongsToMany(Console, {
+  foreignKey: 'consoleId',
+  through: 'gamesInConsole',
+})
+Console.belongsToMany(Game, {
+  foreignKey: 'gameId',
+  through: 'gamesInConsole',
+})
 db.sync()
   .then(() => console.log('Database sync'))
   .catch((err) => console.log(err))

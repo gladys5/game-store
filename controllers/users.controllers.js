@@ -7,7 +7,7 @@ const { AppError } = require('../utils/app.Error.util')
 dotenv.config({ path: './config.env' })
 
 //crear usuario
-const createUser = catchAsync(async (req, res) => {
+const createUser = catchAsync(async (req, res, next) => {
   const { name, email, password } = req.body
   //genSalt es un metodo que genera un string el numero de veces que le indiquemos
   const salt = await bcrypt.genSalt(12)
@@ -29,8 +29,11 @@ const createUser = catchAsync(async (req, res) => {
 })
 
 //obtener las cuentas de usuarios activos proteger jwt
-const getUserActive = catchAsync(async (req, res) => {
-  const users = await User.findAll({ where: { status: 'active' } })
+const getUserActive = catchAsync(async (req, res, next) => {
+  // const{user}=req
+  const users = await User.findAll()
+
+  // console.log(users)
   res.status(200).json({
     users,
   })
@@ -73,7 +76,7 @@ const login = catchAsync(async (req, res, next) => {
 })
 
 //actualizar perfil de usuario proteger jwt
-const updateUser = catchAsync(async (req, res) => {
+const updateUser = catchAsync(async (req, res, next) => {
   const { user } = req
   const { name, email } = req.body
   await user.update({ name, email })
@@ -82,7 +85,7 @@ const updateUser = catchAsync(async (req, res) => {
   })
 })
 //desabilitar cuenta de usuario proteger jwt
-const desabiliteUser = catchAsync(async (req, res) => {
+const desabiliteUser = catchAsync(async (req, res, next) => {
   const { user } = req
 
   await user.update({ status: 'deleted' })

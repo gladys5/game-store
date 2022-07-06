@@ -18,7 +18,7 @@ router.post('/signup', createUserValidators, createUser)
 router.post('/login', login)
 //todas las rutas por debajo estan protegidas
 router.use(protectSession)
-router.get('/', protectUserAccount, userExists, getUserActive)
-router.patch('/:id', protectUserAccount, userExists, updateUser)
-router.delete('/:id', protectUserAccount, userExists, desabiliteUser)
+router.get('/', getUserActive)
+router.patch('/:id', userExists, protectUserAccount, updateUser)
+router.delete('/:id', userExists, protectUserAccount, desabiliteUser)
 module.exports = { UserRouter: router }

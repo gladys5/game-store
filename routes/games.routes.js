@@ -6,23 +6,18 @@ const {
   updateTitleOfOneGame,
   writeReviewOfGame,
   desabiliteGame,
+  gameAddConsole,
 } = require('../controllers/games.controllers')
 const { gameExist } = require('../midellwares/gameExist.middleware')
-const {
-  protectSession,
-  protectUserAccount,
-} = require('../midellwares/auth.middleware')
+const { protectSession } = require('../midellwares/auth.middleware')
 
 const router = express.Router()
+
 router.get('/', getAllGames)
 router.use(protectSession)
-router.post(
-  '/reviews/:gameId',
-  protectUserAccount,
-  gameExist,
-  writeReviewOfGame
-)
-router.post('/', protectUserAccount, createNewGame)
-router.patch('/:id', protectUserAccount, updateTitleOfOneGame)
-router.delete('/:id', protectUserAccount, desabiliteGame)
+router.post('/', createNewGame)
+router.post('/gameAddConsole', gameAddConsole)
+router.post('/reviews/:gameId', gameExist, writeReviewOfGame)
+router.patch('/:id', updateTitleOfOneGame)
+router.delete('/:id', desabiliteGame)
 module.exports = { GameRouter: router }

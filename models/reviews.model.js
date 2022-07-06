@@ -17,7 +17,7 @@ const Review = db.define('review', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  gametId: {
+  gameId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
