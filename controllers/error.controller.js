@@ -3,6 +3,7 @@ const globalErrorHandler = (err, req, res, next) => {
 
   res.status(statusCode).json({
     status: 'fail',
+    //accedemos al mensaje del error
     message: err.message,
     error: err,
     stack: err.stack,

@@ -12,7 +12,6 @@ const createGame = catchAsync(async (req, res, next) => {
 //obtener todas las consolas registradas (traer los juegos que esten disponibles para dicha consola)
 const getConsolesRegistereds = catchAsync(async (req, res, next) => {
   const consoles = await Console.findAll()
-  //traer juegos disponibles
   res.status(200).json({
     consoles,
   })
